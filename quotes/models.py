@@ -1,7 +1,6 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import User
-from django.utils.translation import gettext_lazy as _
 
 class Customer(models.Model):
     name = models.CharField(max_length=200)
@@ -9,19 +8,24 @@ class Customer(models.Model):
     city = models.CharField(max_length=100)
     phone = models.CharField(max_length=100)
     email = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
+class QuoteStatus(models.Model):
+    name = models.CharField(max_length=20)
+
+    class Meta:
+        verbose_name_plural = "Quote - Statuses"
 
     def __str__(self):
         return self.name
 
 
 class Quote(models.Model):
-
-    class QuoteStatus(models.TextChoices):
-        AWAITING_EMAIL = 'EU', _('Awaiting Email')
-        EMAIL_SENT = 'ES', _('Email Sent')
-        PROJECT_COMPLETED = 'PC', _('Project Completed')
-        INACTIVE = 'IN', _('Inactive')
-        ARCHIVED = 'AR', _('Archived')
 
     estimated_install_time = models.CharField(max_length=100)
     date_created = models.DateTimeField(auto_now_add=True)
@@ -37,8 +41,6 @@ class Quote(models.Model):
     equipment_required = models.CharField(max_length=200)
     written_by = models.ForeignKey(User, on_delete=models.PROTECT)
     customers = models.ManyToManyField(Customer)
-    status = models.CharField(
-        max_length = 2,
-        choices=QuoteStatus.choices,
-        default=QuoteStatus.AWAITING_EMAIL,
-    )
+    status = models.ForeignKey(QuoteStatus, on_delete=models.PROTECT)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
