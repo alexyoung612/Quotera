@@ -1,6 +1,6 @@
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, render
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, ListView
 from django.urls import reverse
 
 from .models import Quote
@@ -56,3 +56,6 @@ class QuoteUpdateView(UpdateView):
 
     def get_success_url(self):
             return reverse('quotes:detail', args=[str(self.object.id)])
+
+class QuoteListView(ListView):
+    queryset = Quote.objects.order_by('-date_created')[:5]

@@ -1,0 +1,42 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    {% if object_list %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Customer(s)</th>
+              <th scope="col">Status</th>
+              <th scope="col">Created By</th>
+              <th scope="col">Created At</th>
+            </tr>
+          </thead>
+        <tbody>
+            {% for quote in object_list %}
+            <tr data-href="{% url 'quotes:detail' quote.id %}">
+                <td>{{ quote.id }}</td>
+                <td>
+                    {% for customer in quote.customers.all %}
+                    {{ customer.name }} <br>
+                    {% endfor %}
+                </td>
+                <td>{{ quote.status }}</td>
+                <td>{{ quote.written_by }}</td>
+                <td>{{ quote.created_at }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No quotes are available.</p>
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $('tr[data-href]').on('click', function() {
+            document.location = $(this).data('href');
+        });
+    </script>
+{% endblock %}
