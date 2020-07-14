@@ -1,5 +1,8 @@
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, render
+from django.views.generic import CreateView
+from django.urls import reverse
+
 from .models import Quote
 
 def index(request):
@@ -14,3 +17,21 @@ def detail(request, quote_id):
 def email_draft(request, quote_id):
     response = "You're looking at the email draft of quote %s."
     return HttpResponse(response % quote_id)
+
+class QuoteCreateView(CreateView):
+    model = Quote
+    fields = (
+        'estimated_install_time',
+        'install_difficulty',
+        'installers_required',
+        'equipment_required',
+        'customers',
+        'status',
+    )
+
+    def form_valid(self, form):
+        form.instance.written_by = self.request.user
+        return super(QuoteCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+            return reverse('quotes:detail', args=[str(self.object.id)])

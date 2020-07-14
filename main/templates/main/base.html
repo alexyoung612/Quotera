@@ -11,7 +11,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{% url 'main:home' %}">
-            <img src="{% static 'main/images/quotera_logo_300x300.png' %}" width="75" height="75" alt="Company Logo">
+            <img src="{% static 'main/images/quotera_logo_300x300.png' %}" width="60" height="60" alt="Company Logo">
             Quotera
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
@@ -24,7 +24,7 @@
                 <a class="nav-link" href="{% url 'quotes:index' %}">List</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Create</a>
+                <a class="nav-link" href="{% url 'quotes:create' %}">Create</a>
               </li>
             </ul>
             <ul class="navbar-nav ml-auto">

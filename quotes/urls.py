@@ -6,6 +6,7 @@ app_name = 'quotes'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('create/', views.QuoteCreateView.as_view(), name='create'),
     path('<int:quote_id>/', views.detail, name='detail'),
     path('<int:quote_id>/email_draft/', views.email_draft, name='email draft'),
 ]
