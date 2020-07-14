@@ -28,8 +28,6 @@ class QuoteStatus(models.Model):
 class Quote(models.Model):
 
     estimated_install_time = models.CharField(max_length=100)
-    date_created = models.DateTimeField(auto_now_add=True)
-    date_modified = models.DateTimeField(auto_now=True)
     install_difficulty = models.IntegerField(
         default=1,
         validators=[
