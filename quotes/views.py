@@ -2,23 +2,18 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import CreateView, UpdateView, ListView
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from .models import Quote
 
-def index(request):
-    latest_quote_list = Quote.objects.order_by('-date_created')[:5]
-    context = {'latest_quote_list': latest_quote_list}
-    return render(request, 'quotes/index.html', context)
-
-def detail(request, quote_id):
-    quote = get_object_or_404(Quote, pk=quote_id)
-    return render(request, 'quotes/detail.html', {'quote': quote})
-
+@login_required
 def email_draft(request, quote_id):
     response = "You're looking at the email draft of quote %s."
     return HttpResponse(response % quote_id)
 
-class QuoteCreateView(CreateView):
+class QuoteCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = 'quotes.add_quote'
     model = Quote
     fields = (
         'customers',
@@ -36,7 +31,9 @@ class QuoteCreateView(CreateView):
     def get_success_url(self):
             return reverse('quotes:detail', args=[str(self.object.id)])
 
-class QuoteUpdateView(UpdateView):
+class QuoteUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = 'quotes.change_quote'
+    permission_denied_message = 'You do not have permission to update quotes'
     model = Quote
     fields = (
         'customers',
@@ -57,5 +54,6 @@ class QuoteUpdateView(UpdateView):
     def get_success_url(self):
             return reverse('quotes:detail', args=[str(self.object.id)])
 
-class QuoteListView(ListView):
-    queryset = Quote.objects.order_by('-date_created')[:5]
+class QuoteListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = 'quotes.view_quote'
+    queryset = Quote.objects.order_by('-created_at')[:5]
