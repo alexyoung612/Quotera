@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'quotes.apps.QuotesConfig',
     'main.apps.MainConfig',
     'crispy_forms',
+    'dynamic_formsets',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

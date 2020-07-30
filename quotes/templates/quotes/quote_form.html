@@ -5,7 +5,8 @@
 {% block content %}
   <form method="post">
     {% csrf_token %}
-    {{ form|crispy }}
-    <button type="submit" class="btn btn-success">Save Quote</button>
+    {% crispy form %}
+    <!-- {{ form|crispy }} -->
+    <!-- <button type="submit" class="btn btn-success">Save Quote</button> -->
   </form>
 {% endblock %}

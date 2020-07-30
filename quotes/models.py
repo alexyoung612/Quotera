@@ -14,19 +14,16 @@ class Customer(models.Model):
     def __str__(self):
         return self.name
 
-
 class QuoteStatus(models.Model):
     name = models.CharField(max_length=20)
 
     class Meta:
-        verbose_name_plural = "Quote - Statuses"
+        verbose_name_plural = 'Quote - Statuses'
 
     def __str__(self):
         return self.name
 
-
 class Quote(models.Model):
-
     estimated_install_time = models.CharField(max_length=100)
     install_difficulty = models.IntegerField(
         default=1,
@@ -42,3 +39,16 @@ class Quote(models.Model):
     status = models.ForeignKey(QuoteStatus, on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+class AwningType(models.Model):
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
+class Awning(models.Model):
+    quote = models.ForeignKey(Quote, on_delete=models.PROTECT)
+    awning_type = models.ForeignKey(AwningType, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.awning_type.name
