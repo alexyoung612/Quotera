@@ -15,18 +15,10 @@ def email_draft(request, quote_id):
     return HttpResponse(response % quote_id)
 
 class QuoteCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+
     permission_required = 'quotes.add_quote'
     model = Quote
-    # template_name = 'quotes/quote_form.html'  # might not need this?
     form_class = QuoteForm
-    # fields = (
-    #     'customers',
-    #     'estimated_install_time',
-    #     'install_difficulty',
-    #     'installers_required',
-    #     'equipment_required',
-    #     'status',
-    # )
 
     def get_context_data(self, **kwargs):
         data = super(QuoteCreateView, self).get_context_data(**kwargs)
@@ -51,23 +43,33 @@ class QuoteCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         return reverse('quotes:detail', args=[str(self.object.id)])
 
 class QuoteUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+
     permission_required = 'quotes.change_quote'
     permission_denied_message = 'You do not have permission to update quotes'
     model = Quote
-    fields = (
-        'customers',
-        'estimated_install_time',
-        'install_difficulty',
-        'installers_required',
-        'equipment_required',
-        'status',
-    )
+    form_class = QuoteForm
 
-    def get_object(self):
+    def get_context_data(self, **kwargs):
+        data = super(QuoteUpdateView, self).get_context_data(**kwargs)
+        if self.request.POST:
+            data['awnings'] = AwningFormSet(self.request.POST, instance=self.object)
+        else:
+            data['awnings'] = AwningFormSet(instance=self.object)
+        return data
+
+    def get_object(self, queryset=None):
         quote_id = self.kwargs.get('quote_id')
         return get_object_or_404(Quote, pk=quote_id)
 
     def form_valid(self, form):
+        context = self.get_context_data()
+        awnings = context['awnings']
+        with transaction.atomic():
+            form.instance.written_by = self.request.user
+            self.object = form.save()
+            if awnings.is_valid():
+                awnings.instance = self.object
+                awnings.save()
         return super(QuoteUpdateView, self).form_valid(form)
 
     def get_success_url(self):
