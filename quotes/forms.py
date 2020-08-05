@@ -1,16 +1,35 @@
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, Fieldset, Div, HTML, ButtonHolder, Submit
+from crispy_forms.layout import Layout, Field, Fieldset, Div, HTML, ButtonHolder, Submit, Row
 from django import forms
 from django.forms.models import inlineformset_factory
 
 from .custom_layout_object import Formset
 from .models import Awning, Quote
 
+import re
+
+
 class AwningForm(forms.ModelForm):
 
     class Meta:
         model = Awning
         fields = ('awning_type', 'quote',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        formtag_prefix = re.sub('-[0-9]+$', '', kwargs.get('prefix', ''))
+
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+        self.helper.render_hidden_fields = True
+        self.helper.layout = Layout(
+            Row(
+                Field('awning_type'),
+                Field('DELETE'),
+                css_class='formset_row-{}'.format(formtag_prefix)
+            )
+        )
 
 AwningFormSet = inlineformset_factory(
     Quote, Awning, form=AwningForm, fields=['awning_type'], extra=1,
