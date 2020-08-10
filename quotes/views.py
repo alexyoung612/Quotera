@@ -1,5 +1,5 @@
 from django.http import HttpResponse, Http404
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, UpdateView, ListView
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.db import transaction
 
 from .models import Quote
-from .forms import AwningFormSet, QuoteForm
+from .forms import AwningFormSet, ScreenFormSet, QuoteForm
 
 @login_required
 def email_draft(request, quote_id):
@@ -24,19 +24,25 @@ class QuoteCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         data = super(QuoteCreateView, self).get_context_data(**kwargs)
         if self.request.POST:
             data['awnings'] = AwningFormSet(self.request.POST)
+            data['screens'] = ScreenFormSet(self.request.POST)
         else:
             data['awnings'] = AwningFormSet()
+            data['screens'] = ScreenFormSet()
         return data
 
     def form_valid(self, form):
         context = self.get_context_data()
         awnings = context['awnings']
+        screens = context['screens']
         with transaction.atomic():
             form.instance.written_by = self.request.user
             self.object = form.save()
             if awnings.is_valid():
                 awnings.instance = self.object
                 awnings.save()
+            if screens.is_valid():
+                screens.instance = self.object
+                screens.save()
         return super(QuoteCreateView, self).form_valid(form)
 
     def get_success_url(self):
@@ -53,8 +59,10 @@ class QuoteUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
         data = super(QuoteUpdateView, self).get_context_data(**kwargs)
         if self.request.POST:
             data['awnings'] = AwningFormSet(self.request.POST, instance=self.object)
+            data['screens'] = ScreenFormSet(self.request.POST, instance=self.object)
         else:
             data['awnings'] = AwningFormSet(instance=self.object)
+            data['screens'] = ScreenFormSet(instance=self.object)
         return data
 
     def get_object(self, queryset=None):
@@ -64,12 +72,16 @@ class QuoteUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     def form_valid(self, form):
         context = self.get_context_data()
         awnings = context['awnings']
+        screens = context['screens']
         with transaction.atomic():
             form.instance.written_by = self.request.user
             self.object = form.save()
             if awnings.is_valid():
                 awnings.instance = self.object
                 awnings.save()
+            if screens.is_valid():
+                screens.instance = self.object
+                screens.save()
         return super(QuoteUpdateView, self).form_valid(form)
 
     def get_success_url(self):

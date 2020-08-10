@@ -1,12 +1,12 @@
+import re
+
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Fieldset, Div, HTML, ButtonHolder, Submit, Row
 from django import forms
 from django.forms.models import inlineformset_factory
 
 from .custom_layout_object import Formset
-from .models import Awning, Quote
-
-import re
+from .models import Awning, Screen, Quote
 
 
 class AwningForm(forms.ModelForm):
@@ -36,6 +36,33 @@ AwningFormSet = inlineformset_factory(
     can_delete=True
 )
 
+class ScreenForm(forms.ModelForm):
+
+    class Meta:
+        model = Screen
+        fields = ('fabric_color', 'quote',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        formtag_prefix = re.sub('-[0-9]+$', '', kwargs.get('prefix', ''))
+
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+        self.helper.render_hidden_fields = True
+        self.helper.layout = Layout(
+            Row(
+                Field('fabric_color'),
+                Field('DELETE'),
+                css_class='formset_row-{}'.format(formtag_prefix)
+            )
+        )
+
+ScreenFormSet = inlineformset_factory(
+    Quote, Screen, form=ScreenForm, fields=['fabric_color'], extra=1,
+    can_delete=True
+)
+
 class QuoteForm(forms.ModelForm):
 
     class Meta:
@@ -62,6 +89,10 @@ class QuoteForm(forms.ModelForm):
                 Fieldset(
                     'Add awnings',
                     Formset('awnings')
+                ),
+                Fieldset(
+                    'Add screens',
+                    Formset('screens')
                 ),
                 Field('estimated_install_time'),
                 Field('install_difficulty'),
