@@ -24,16 +24,69 @@ class AwningForm(forms.ModelForm):
         self.helper.form_tag = False
         self.helper.render_hidden_fields = True
         self.helper.layout = Layout(
-            Row(
-                Field('awning_type'),
+            Div(
+                Row(
+                    Field('awning_type', wrapper_class='col-md-9'),
+                    Field('wrap_front_profile'),
+                ),
+                Row(
+                    Field('width_inches', wrapper_class='col-md-3'),
+                    Field('projection_inches', wrapper_class='col-md-3'),
+                    Field('height_inches', wrapper_class='col-md-3'),
+                    Field('frame_color', wrapper_class='col-md-3'),
+                ),
+                Row(
+                    Field('operation', wrapper_class='col-md-2'),
+                    Field('motor_type', wrapper_class='col-md-2'),
+                    Field('cord_length', wrapper_class='col-md-2'),
+                    Field('remote', wrapper_class='col-md-2'),
+                    Field('wind_sensor', wrapper_class='col-md-2'),
+                    Field('crank_size', wrapper_class='col-md-2'),
+                ),
+                Row(
+                    Field('control_side', wrapper_class='col-md-2'),
+                    Field('control_notes', wrapper_class='col-md-2'),
+                    Field('hood_cover', wrapper_class='col-md-2'),
+                    Field('fabric', wrapper_class='col-md-2'),
+                    Field('valance', wrapper_class='col-md-2'),
+                    Field('trim', wrapper_class='col-md-2'),
+                ),
+                Row(
+                    Field('mount', wrapper_class='col-md-3'),
+                    Field('mount_notes', wrapper_class='col-md-9'),
+                ),
+                Row(
+                    Field('bracket_type', wrapper_class='col-md-4'),
+                    Field('bracket_quantity', wrapper_class='col-md-4'),
+                    Field('bracket_color', wrapper_class='col-md-4'),
+                ),
+                Row(
+                    Field('placement_on_house', wrapper_class='col-md-2'),
+                    Field('awning_notes', wrapper_class='col-md-10', rows='3'),
+                ),
+                Row(
+                    Field('awning_price_quote', wrapper_class='col-md-3'),
+                    Field('motor_price_quote', wrapper_class='col-md-3'),
+                    Field('bracket_price_quote', wrapper_class='col-md-3'),
+                    Field('additional_costs_quote', wrapper_class='col-md-3'),
+                ),
                 Field('DELETE'),
-                css_class='formset_row-{}'.format(formtag_prefix)
-            )
+                css_class='formset_row-{} list-group-item rounded'.format(formtag_prefix)
+            ),
         )
 
 AwningFormSet = inlineformset_factory(
-    Quote, Awning, form=AwningForm, fields=['awning_type'], extra=1,
-    can_delete=True
+    Quote, Awning, form=AwningForm,
+    fields=[
+        'awning_type', 'wrap_front_profile', 'width_inches',
+        'projection_inches', 'height_inches', 'frame_color', 'operation',
+        'motor_type', 'cord_length', 'remote', 'wind_sensor', 'crank_size',
+        'control_side', 'control_notes', 'hood_cover', 'fabric', 'valance',
+        'trim', 'mount', 'mount_notes', 'bracket_type', 'bracket_quantity',
+        'bracket_color', 'placement_on_house', 'awning_notes',
+        'awning_price_quote', 'motor_price_quote', 'bracket_price_quote',
+        'additional_costs_quote'
+    ], extra=1, can_delete=True
 )
 
 class ScreenForm(forms.ModelForm):
@@ -88,7 +141,8 @@ class QuoteForm(forms.ModelForm):
                 Field('customers'),
                 Fieldset(
                     'Add awnings',
-                    Formset('awnings')
+                    Formset('awnings'),
+                    css_class='list-group'
                 ),
                 Fieldset(
                     'Add screens',
@@ -99,7 +153,7 @@ class QuoteForm(forms.ModelForm):
                 Field('installers_required'),
                 Field('equipment_required'),
                 Field('status'),
-                HTML("<br>"),
+                HTML('<br>'),
                 ButtonHolder(Submit('submit', 'save')),
             )
         )

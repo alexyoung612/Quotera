@@ -5,6 +5,12 @@
     .delete-row {
         align-self: center;
     }
+    .list-group-item:nth-child(even) {
+        background: #DDD
+    }
+    .list-group-item:nth-child(odd) {
+        background: #EEE
+    }
 </style>
 
 {{ formset.management_form|crispy }}
