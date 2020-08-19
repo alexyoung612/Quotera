@@ -38,7 +38,7 @@ class Quote(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class AwningType(models.Model):
-    name = models.CharField(max_length=20, unique=True)
+    name = models.CharField(max_length=40, unique=True)
     can_wrap_front_profile = models.BooleanField(default=False)
     can_set_height = models.BooleanField(default=False)
 
@@ -46,55 +46,55 @@ class AwningType(models.Model):
         return self.name
 
 class AwningOperation(models.Model):
-    name = models.CharField(max_length=20, unique=True)
+    name = models.CharField(max_length=40, unique=True)
 
     def __str__(self):
         return self.name
 
 class AwningMotorType(models.Model):
-    name = models.CharField(max_length=20, unique=True)
+    name = models.CharField(max_length=40, unique=True)
 
     def __str__(self):
         return self.name
 
 class AwningCordLength(models.Model):
-    name = models.CharField(max_length=20, unique=True)
+    name = models.CharField(max_length=40, unique=True)
 
     def __str__(self):
         return self.name
 
 class AwningRemote(models.Model):
-    name = models.CharField(max_length=20, unique=True)
+    name = models.CharField(max_length=40, unique=True)
 
     def __str__(self):
         return self.name
 
 class AwningCrankSize(models.Model):
-    name = models.CharField(max_length=20, unique=True)
+    name = models.CharField(max_length=40, unique=True)
 
     def __str__(self):
         return self.name
 
 class AwningHoodCover(models.Model):
-    name = models.CharField(max_length=20, unique=True)
+    name = models.CharField(max_length=40, unique=True)
 
     def __str__(self):
         return self.name
 
 class AwningValance(models.Model):
-    name = models.CharField(max_length=20, unique=True)
+    name = models.CharField(max_length=40, unique=True)
 
     def __str__(self):
         return self.name
 
 class AwningMount(models.Model):
-    name = models.CharField(max_length=20, unique=True)
+    name = models.CharField(max_length=40, unique=True)
 
     def __str__(self):
         return self.name
 
 class AwningBracketType(models.Model):
-    name = models.CharField(max_length=20, unique=True)
+    name = models.CharField(max_length=40, unique=True)
 
     def __str__(self):
         return self.name
