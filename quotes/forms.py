@@ -2,6 +2,7 @@ import re
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Fieldset, Div, HTML, ButtonHolder, Submit, Row
+from crispy_forms.bootstrap import PrependedText
 from django import forms
 from django.forms.models import inlineformset_factory
 
@@ -65,10 +66,10 @@ class AwningForm(forms.ModelForm):
                     Field('awning_notes', wrapper_class='col-md-10', rows='3'),
                 ),
                 Row(
-                    Field('awning_price_quote', wrapper_class='col-md-3'),
-                    Field('motor_price_quote', wrapper_class='col-md-3'),
-                    Field('bracket_price_quote', wrapper_class='col-md-3'),
-                    Field('additional_costs_quote', wrapper_class='col-md-3'),
+                    PrependedText('awning_price_quote', '$', wrapper_class='col-md-3'),
+                    PrependedText('motor_price_quote', '$', wrapper_class='col-md-3'),
+                    PrependedText('bracket_price_quote', '$', wrapper_class='col-md-3'),
+                    PrependedText('additional_costs_quote', '$', wrapper_class='col-md-3'),
                 ),
                 Field('DELETE'),
                 css_class='formset_row-{} list-group-item rounded'.format(formtag_prefix)
