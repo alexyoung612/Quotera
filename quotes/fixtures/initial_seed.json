@@ -1,0 +1,454 @@
+[
+  {
+    "model": "quotes.AwningType",
+    "pk": 1,
+    "fields": {
+      "name": "Royal Marcesa",
+      "can_wrap_front_profile": true,
+      "can_set_height": false
+    }
+  },
+  {
+    "model": "quotes.AwningType",
+    "pk": 2,
+    "fields": {
+      "name": "Royal",
+      "can_wrap_front_profile": true,
+      "can_set_height": false
+    }
+  },
+  {
+    "model": "quotes.AwningType",
+    "pk": 3,
+    "fields": {
+      "name": "Royal Marcesa Cassette",
+      "can_wrap_front_profile": true,
+      "can_set_height": false
+    }
+  },
+  {
+    "model": "quotes.AwningType",
+    "pk": 4,
+    "fields": {
+      "name": "Royal Cassette",
+      "can_wrap_front_profile": true,
+      "can_set_height": false
+    }
+  },
+  {
+    "model": "quotes.AwningType",
+    "pk": 5,
+    "fields": {
+      "name": "Imperial Marcesa",
+      "can_wrap_front_profile": true,
+      "can_set_height": false
+    }
+  },
+  {
+    "model": "quotes.AwningType",
+    "pk": 6,
+    "fields": {
+      "name": "Imperial",
+      "can_wrap_front_profile": true,
+      "can_set_height": false
+    }
+  },
+  {
+    "model": "quotes.AwningType",
+    "pk": 7,
+    "fields": {
+      "name": "Imperial Adjustable Valance",
+      "can_wrap_front_profile": false,
+      "can_set_height": false
+    }
+  },
+  {
+    "model": "quotes.AwningType",
+    "pk": 8,
+    "fields": {
+      "name": "Imperial Crossover",
+      "can_wrap_front_profile": false,
+      "can_set_height": false
+    }
+  },
+  {
+    "model": "quotes.AwningType",
+    "pk": 9,
+    "fields": {
+      "name": "Marcesa",
+      "can_wrap_front_profile": false,
+      "can_set_height": false
+    }
+  },
+  {
+    "model": "quotes.AwningType",
+    "pk": 10,
+    "fields": {
+      "name": "Classic",
+      "can_wrap_front_profile": false,
+      "can_set_height": false
+    }
+  },
+  {
+    "model": "quotes.AwningType",
+    "pk": 11,
+    "fields": {
+      "name": "Empress Marcesa",
+      "can_wrap_front_profile": false,
+      "can_set_height": false
+    }
+  },
+  {
+    "model": "quotes.AwningType",
+    "pk": 12,
+    "fields": {
+      "name": "Empress",
+      "can_wrap_front_profile": false,
+      "can_set_height": false
+    }
+  },
+  {
+    "model": "quotes.AwningType",
+    "pk": 13,
+    "fields": {
+      "name": "Grand Vienna",
+      "can_wrap_front_profile": false,
+      "can_set_height": false
+    }
+  },
+  {
+    "model": "quotes.AwningType",
+    "pk": 14,
+    "fields": {
+      "name": "Grand Vienna Drop",
+      "can_wrap_front_profile": false,
+      "can_set_height": false
+    }
+  },
+  {
+    "model": "quotes.AwningType",
+    "pk": 15,
+    "fields": {
+      "name": "Baron",
+      "can_wrap_front_profile": false,
+      "can_set_height": false
+    }
+  },
+  {
+    "model": "quotes.AwningType",
+    "pk": 16,
+    "fields": {
+      "name": "Baroness",
+      "can_wrap_front_profile": false,
+      "can_set_height": false
+    }
+  },
+  {
+    "model": "quotes.AwningType",
+    "pk": 17,
+    "fields": {
+      "name": "Diplomat 100",
+      "can_wrap_front_profile": false,
+      "can_set_height": true
+    }
+  },
+  {
+    "model": "quotes.AwningType",
+    "pk": 18,
+    "fields": {
+      "name": "Diplomat 90",
+      "can_wrap_front_profile": false,
+      "can_set_height": true
+    }
+  },
+  {
+    "model": "quotes.AwningType",
+    "pk": 19,
+    "fields": {
+      "name": "Duchess",
+      "can_wrap_front_profile": false,
+      "can_set_height": false
+    }
+  },
+  {
+    "model": "quotes.AwningType",
+    "pk": 20,
+    "fields": {
+      "name": "Ambassador 50",
+      "can_wrap_front_profile": false,
+      "can_set_height": true
+    }
+  },
+  {
+    "model": "quotes.AwningType",
+    "pk": 21,
+    "fields": {
+      "name": "Ambassador 10",
+      "can_wrap_front_profile": false,
+      "can_set_height": true
+    }
+  },
+  {
+    "model": "quotes.AwningType",
+    "pk": 22,
+    "fields": {
+      "name": "Ambassador 40",
+      "can_wrap_front_profile": false,
+      "can_set_height": true
+    }
+  },
+  {
+    "model": "quotes.AwningType",
+    "pk": 23,
+    "fields": {
+      "name": "Traditional",
+      "can_wrap_front_profile": false,
+      "can_set_height": true
+    }
+  },
+  {
+    "model": "quotes.AwningOperation",
+    "pk": 1,
+    "fields": {
+      "name": "Motor"
+    }
+  },
+  {
+    "model": "quotes.AwningOperation",
+    "pk": 2,
+    "fields": {
+      "name": "Manual"
+    }
+  },
+  {
+    "model": "quotes.AwningOperation",
+    "pk": 3,
+    "fields": {
+      "name": "Fixed"
+    }
+  },
+  {
+    "model": "quotes.AwningOperation",
+    "pk": 4,
+    "fields": {
+      "name": "None"
+    }
+  },
+  {
+    "model": "quotes.AwningMotorType",
+    "pk": 1,
+    "fields": {
+      "name": "RTS"
+    }
+  },
+  {
+    "model": "quotes.AwningMotorType",
+    "pk": 2,
+    "fields": {
+      "name": "CMO (Sunea)"
+    }
+  },
+  {
+    "model": "quotes.AwningMotorType",
+    "pk": 3,
+    "fields": {
+      "name": "Standard (Hardwire)"
+    }
+  },
+  {
+    "model": "quotes.AwningMotorType",
+    "pk": 4,
+    "fields": {
+      "name": "Orea"
+    }
+  },
+  {
+    "model": "quotes.AwningCordLength",
+    "pk": 1,
+    "fields": {
+      "name": "3'"
+    }
+  },
+  {
+    "model": "quotes.AwningCordLength",
+    "pk": 2,
+    "fields": {
+      "name": "6'"
+    }
+  },
+  {
+    "model": "quotes.AwningCordLength",
+    "pk": 3,
+    "fields": {
+      "name": "12'"
+    }
+  },
+  {
+    "model": "quotes.AwningCordLength",
+    "pk": 4,
+    "fields": {
+      "name": "18'"
+    }
+  },
+  {
+    "model": "quotes.AwningCordLength",
+    "pk": 5,
+    "fields": {
+      "name": "24'"
+    }
+  },
+  {
+    "model": "quotes.AwningRemote",
+    "pk": 1,
+    "fields": {
+      "name": "T1"
+    }
+  },
+  {
+    "model": "quotes.AwningRemote",
+    "pk": 2,
+    "fields": {
+      "name": "T4"
+    }
+  },
+  {
+    "model": "quotes.AwningRemote",
+    "pk": 3,
+    "fields": {
+      "name": "T1 Wall Switch"
+    }
+  },
+  {
+    "model": "quotes.AwningRemote",
+    "pk": 4,
+    "fields": {
+      "name": "T4 Wall Switch"
+    }
+  },
+  {
+    "model": "quotes.AwningRemote",
+    "pk": 5,
+    "fields": {
+      "name": "16 Channel"
+    }
+  },
+  {
+    "model": "quotes.AwningHoodCover",
+    "pk": 1,
+    "fields": {
+      "name": "None"
+    }
+  },
+  {
+    "model": "quotes.AwningHoodCover",
+    "pk": 2,
+    "fields": {
+      "name": "White"
+    }
+  },
+  {
+    "model": "quotes.AwningHoodCover",
+    "pk": 3,
+    "fields": {
+      "name": "Black"
+    }
+  },
+  {
+    "model": "quotes.AwningHoodCover",
+    "pk": 4,
+    "fields": {
+      "name": "Anodized"
+    }
+  },
+  {
+    "model": "quotes.AwningValance",
+    "pk": 1,
+    "fields": {
+      "name": "None"
+    }
+  },
+  {
+    "model": "quotes.AwningValance",
+    "pk": 2,
+    "fields": {
+      "name": "Straight"
+    }
+  },
+  {
+    "model": "quotes.AwningValance",
+    "pk": 3,
+    "fields": {
+      "name": "Standard Wave"
+    }
+  },
+  {
+    "model": "quotes.AwningValance",
+    "pk": 4,
+    "fields": {
+      "name": "Shallow Wave"
+    }
+  },
+  {
+    "model": "quotes.AwningValance",
+    "pk": 5,
+    "fields": {
+      "name": "Square Cut"
+    }
+  },
+  {
+    "model": "quotes.AwningMount",
+    "pk": 1,
+    "fields": {
+      "name": "Beam"
+    }
+  },
+  {
+    "model": "quotes.AwningMount",
+    "pk": 2,
+    "fields": {
+      "name": "Post"
+    }
+  },
+  {
+    "model": "quotes.AwningMount",
+    "pk": 3,
+    "fields": {
+      "name": "Face of Wall"
+    }
+  },
+  {
+    "model": "quotes.AwningMount",
+    "pk": 4,
+    "fields": {
+      "name": "Roof"
+    }
+  },
+  {
+    "model": "quotes.AwningMount",
+    "pk": 5,
+    "fields": {
+      "name": "Soffit"
+    }
+  },
+  {
+    "model": "quotes.AwningBracketType",
+    "pk": 1,
+    "fields": {
+      "name": "Roof Mount Brackets"
+    }
+  },
+  {
+    "model": "quotes.AwningBracketType",
+    "pk": 2,
+    "fields": {
+      "name": "Hood Lid Brackets"
+    }
+  },
+  {
+    "model": "quotes.AwningBracketType",
+    "pk": 3,
+    "fields": {
+      "name": "Soffit Brackets"
+    }
+  }
+]
