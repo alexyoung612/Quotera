@@ -26,10 +26,10 @@ class QuoteStatus(models.Model):
 
 class Quote(models.Model):
     estimated_install_time = models.CharField(max_length=100)
-    install_difficulty = models.IntegerField(
+    install_difficulty = models.PositiveIntegerField(
         default=1, validators=[MaxValueValidator(10), MinValueValidator(1)]
     )
-    installers_required = models.IntegerField()
+    installers_required = models.PositiveIntegerField()
     equipment_required = models.CharField(max_length=200)
     written_by = models.ForeignKey(User, on_delete=models.PROTECT)
     customers = models.ManyToManyField(Customer)
@@ -39,6 +39,8 @@ class Quote(models.Model):
 
 class AwningType(models.Model):
     name = models.CharField(max_length=20, unique=True)
+    can_wrap_front_profile = models.BooleanField(default=False)
+    can_set_height = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -156,7 +158,7 @@ class Awning(models.Model):
     bracket_type = models.ForeignKey(
         AwningBracketType, null=True, blank=True, on_delete=models.PROTECT
     )
-    bracket_quantity = models.IntegerField(
+    bracket_quantity = models.PositiveIntegerField(
         default=0, validators=[MinValueValidator(0)]
     )
     bracket_color = models.CharField(blank=True, max_length=30)
