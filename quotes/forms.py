@@ -7,8 +7,42 @@ from django import forms
 from django.forms.models import inlineformset_factory
 
 from .custom_layout_object import Formset
-from .models import Awning, Screen, Quote
+from .models import Awning, Customer, Screen, Quote
 
+
+class CustomerForm(forms.ModelForm):
+
+    class Meta:
+        model = Customer
+        fields = ('name', 'address', 'city', 'phone', 'email')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        formtag_prefix = re.sub('-[0-9]+$', '', kwargs.get('prefix', ''))
+
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+        self.helper.render_hidden_fields = True
+        self.helper.layout = Layout(
+            Div(
+                Row(
+                    Field('name', wrapper_class='col-md'),
+                    Field('address', wrapper_class='col-md'),
+                    Field('city', wrapper_class='col-md'),
+                    Field('phone', wrapper_class='col-md'),
+                    Field('email', wrapper_class='col-md'),
+                    # Field('DELETE', wrapper_class='col-md-2'),
+                ),
+                css_class='formset_row-{}'.format(formtag_prefix)
+            )
+        )
+
+CustomerFormSet = inlineformset_factory(
+    Quote, Customer, form=CustomerForm,
+    fields=['name', 'address', 'city', 'phone', 'email'], extra=1, min_num=1,
+    max_num=1, can_delete=False
+)
 
 class AwningForm(forms.ModelForm):
 
@@ -122,7 +156,6 @@ class QuoteForm(forms.ModelForm):
     class Meta:
         model = Quote
         fields = (
-            'customers',
             'estimated_install_time',
             'install_difficulty',
             'installers_required',
@@ -139,14 +172,17 @@ class QuoteForm(forms.ModelForm):
         self.helper.field_class = 'col-md-9'
         self.helper.layout = Layout(
             Div(
-                Field('customers'),
                 Fieldset(
-                    'Add awnings',
+                    'Customer Information',
+                    Formset('customers')
+                ),
+                Fieldset(
+                    'Awnings',
                     Formset('awnings'),
                     css_class='list-group'
                 ),
                 Fieldset(
-                    'Add screens',
+                    'Screens',
                     Formset('screens')
                 ),
                 Field('estimated_install_time'),

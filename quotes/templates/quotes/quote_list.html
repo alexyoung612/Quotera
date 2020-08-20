@@ -7,6 +7,8 @@
             <tr>
               <th scope="col">ID</th>
               <th scope="col">Customer(s)</th>
+              <th scope="col">Address</th>
+              <th scope="col">City</th>
               <th scope="col">Status</th>
               <th scope="col">Created By</th>
               <th scope="col">Created At</th>
@@ -17,8 +19,18 @@
             <tr data-href="{% url 'quotes:detail' quote.id %}">
                 <td>{{ quote.id }}</td>
                 <td>
-                    {% for customer in quote.customers.all %}
+                    {% for customer in quote.customer_set.all %}
                     {{ customer.name }} <br>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for customer in quote.customer_set.all %}
+                    {{ customer.address }} <br>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for customer in quote.customer_set.all %}
+                    {{ customer.city }} <br>
                     {% endfor %}
                 </td>
                 <td>{{ quote.status }}</td>
