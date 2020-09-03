@@ -102,4 +102,13 @@ class QuoteUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 class QuoteListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = 'quotes.view_quote'
-    queryset = Quote.objects.order_by('-created_at')[:5]
+    paginate_by = 10
+
+    def get_queryset(self):
+
+        # If user has permission to view all quotes, show all quotes from every user.
+        # Otherwise, only show the most recent 10 created by the user.
+        if self.request.user.has_perm('quotes.view_all_quotes'):
+            return Quote.objects.order_by('-created_at')
+        else:
+            return Quote.objects.filter(written_by=self.request.user).order_by('-created_at')[:10]

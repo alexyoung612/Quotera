@@ -14,6 +14,12 @@ class QuoteStatus(models.Model):
         return self.name
 
 class Quote(models.Model):
+
+    class Meta:
+        permissions = [
+            ("view_all_quotes", "Can view all quotes from every user"),
+        ]
+
     estimated_install_time = models.CharField(max_length=100)
     install_difficulty = models.PositiveIntegerField(
         default=1, validators=[MaxValueValidator(10), MinValueValidator(1)]
