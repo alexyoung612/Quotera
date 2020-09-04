@@ -1,18 +1,26 @@
 from django.http import HttpResponse, Http404
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render, get_list_or_404
 from django.views.generic import CreateView, UpdateView, ListView
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.db import transaction
+from datetime import date
 
-from .models import Quote
+from .models import Quote, Customer
 from .forms import AwningFormSet, CustomerFormSet, ScreenFormSet, QuoteForm
 
 @login_required
-def email_draft(request, quote_id):
-    response = "You're looking at the email draft of quote %s."
-    return HttpResponse(response % quote_id)
+def email_preview(request, quote_id):
+
+    quote = get_object_or_404(Quote, pk=quote_id)
+    customer = get_list_or_404(Customer, quote=quote_id)[0]
+    context = {
+        'date': date.today().strftime("%Y/%m/%d"),
+        'customer': customer,
+        'quote': quote
+    }
+    return render(request, 'quotes/customer_email_preview.html', context)
 
 class QuoteCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 

@@ -1,0 +1,32 @@
+{% load static %}
+
+<div class="border">
+    <div style="text-align:center; margin:50px 0px 50px 0px;"><img style="-webkit-user-select: none;" class="img-fluid" src="DemoCompany.png" alt="CompanyLogo"></div>
+    <div class="customerInfo" style="margin-bottom:25px;">
+        <p style="margin:5px 5px 15px 5px; font-style:italic;">{{ date }}</p>
+        <p style="margin:5px;"><b>Attention: {{ customer.name }}</b></p>
+        <p style="margin:5px;">{{ customer.address}}, {{ customer.city}}</p>
+        <p style="margin:5px;">{{ customer.phone }}</p>
+        <p style="margin:5px;">{{ customer.email }}</p>
+    </div>
+    <div class="">
+        <p style="margin:15px 5px 15px 5px;">Quote ID: {{ quote.pk }}</p>
+        <p style="margin:5px;">Please view the attached document for quote details.</p>
+    </div>
+    <div class="disclaimer">
+        <p style="margin:25px 5px 5px 5px;">The price quoted includes all materials and labor for the quote requested.</p>
+    </div>
+
+    <p style="margin:5px;">Applicable taxes are not included.</p>
+    <p style="margin:5px;"><b>Warranty: </b> 10 year on all parts, 5 year on labor. Fabric warranty is based on manufacturer’s warranty.</p>
+    <p style="margin:5px 5px 15px 5px;"><b>Quotation: </b> This price is valid for 90 days. Goods remain the property of vendor until paid in full.
+    50% Deposit is required at the time of order, remaining amount due at time of installation.</p>
+    <p style="margin:5px;">Please call or email if you have any questions. If you would like to see the product quoted, please visit one of our showrooms.</p>
+    <p style="margin:15px 5px 5px 5px;">ADDRESS1</p>
+    <p style="margin:5px;">ADDRESS2</p>
+    <p style="margin:5px;">ADDRESS3</p>
+    <div style="margin-top:35px;">
+        <p style="margin:5px;">Thank You, {{ user.get_full_name }}</p>
+        <p style="margin:5px;">Proudly serving LOCATION since COMPANYINCEPTIONYEAR</p>
+    </div>
+</div>
