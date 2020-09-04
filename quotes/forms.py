@@ -193,8 +193,13 @@ class QuoteForm(forms.ModelForm):
                 HTML('<br>'),
                 ButtonHolder(
                     Submit('submit', 'save'),
-                    # Possibly move this element outside of the form in the future?
-                    HTML('<a href="{% url \'quotes:email_preview\' quote_id=quote.pk %}" class="btn btn-success float-right" role="button" aria-pressed="true">Preview Email</a>')
+                    # <a> attached here for layout inline with submit.
+                    # Should be moved elsewhere in the future.
+                    HTML(
+                        '{% if quote.pk %}\
+                        <a href="{% url \'quotes:email_preview\' quote_id=quote.pk %}" class="btn btn-success float-right" role="button" aria-pressed="true">Preview Email</a>\
+                        {% endif %}'
+                    )
                 ),
             )
         )
