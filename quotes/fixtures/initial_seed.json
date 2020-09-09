@@ -333,6 +333,41 @@
     }
   },
   {
+    "model": "quotes.AwningCrankSize",
+    "pk": 1,
+    "fields": {
+      "name": "40\""
+    }
+  },
+  {
+    "model": "quotes.AwningCrankSize",
+    "pk": 2,
+    "fields": {
+      "name": "56\""
+    }
+  },
+  {
+    "model": "quotes.AwningCrankSize",
+    "pk": 3,
+    "fields": {
+      "name": "64\""
+    }
+  },
+  {
+    "model": "quotes.AwningCrankSize",
+    "pk": 4,
+    "fields": {
+      "name": "80\""
+    }
+  },
+  {
+    "model": "quotes.AwningCrankSize",
+    "pk": 5,
+    "fields": {
+      "name": "96\""
+    }
+  },
+  {
     "model": "quotes.AwningHoodCover",
     "pk": 1,
     "fields": {
@@ -449,6 +484,13 @@
     "pk": 3,
     "fields": {
       "name": "Soffit Brackets"
+    }
+  },
+  {
+    "model": "quotes.QuoteStatus",
+    "pk": 1,
+    "fields": {
+      "name": "Active"
     }
   }
 ]
