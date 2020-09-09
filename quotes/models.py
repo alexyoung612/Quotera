@@ -1,7 +1,11 @@
 from django.db import models
+from django.core.mail import EmailMessage
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
+from django.conf import settings
+from django.template.loader import render_to_string
+from datetime import datetime
 
 
 class QuoteStatus(models.Model):
@@ -31,6 +35,47 @@ class Quote(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def send_customer_email(self, context, **kwargs):
+        """Send an customer-oriented HTML email summary of the quote. builds
+        email body from template, render, and context, similar to a standard
+        view.
+
+        Args:
+            context (dict): Template context.
+            **subject (str): Email subject.
+            **to_email (list[str]): A collection of email addresses to send
+                                    the customer email to.
+
+
+        Returns:
+            bool: True if email is sent successfully.
+        """
+
+        customer_email_list = self.customer_set.all().values_list(
+            'email', flat=True
+        )
+
+        email = EmailMessage(
+            subject=kwargs.get('subject', 'Your Price Quote'),
+            body=render_to_string('quotes/customer_email.html', context),
+            from_email=settings.EMAIL_HOST_USER,
+            to=kwargs.get(
+                'to_email',
+                customer_email_list
+            )
+        )
+        email.content_subtype = 'html'
+        email.send()
+
+        # for every email that was sent to a known customer email address,
+        # update the last_emailed_at value.
+        for email_address in set(customer_email_list).intersection(email.to):
+            customer = self.customer_set.get(email=email_address)
+            customer.last_emailed_at = datetime.now()
+            customer.save()
+
+        return True
+
 class Customer(models.Model):
     quote = models.ForeignKey(Quote, null=True, on_delete=models.PROTECT)
     name = models.CharField(max_length=200)
@@ -40,6 +85,7 @@ class Customer(models.Model):
     email = models.CharField(max_length=200, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    last_emailed_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return self.name

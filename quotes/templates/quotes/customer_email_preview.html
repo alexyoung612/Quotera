@@ -1,7 +1,16 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
+    {% if success_message %}
+    <div class="alert alert-success" role="alert">
+        {{ success_message }}
+    </div>
+    {% endif %}
     <div class="border">
         {% include 'quotes/customer_email.html' %}
     </div>
+    <form class="preview_details m-3" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Send Email</button>
+    </form>
 {% endblock %}

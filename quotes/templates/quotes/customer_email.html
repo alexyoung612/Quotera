@@ -1,7 +1,7 @@
 {% load static %}
 
 <div class="border">
-    <div style="text-align:center; margin:50px 0px 50px 0px;"><img style="-webkit-user-select: none;" class="img-fluid" src="DemoCompany.png" alt="CompanyLogo"></div>
+    <div style="text-align:center; margin:50px 0px 50px 0px;"><img style="-webkit-user-select: none;" class="img-fluid" src="{{ company.logo_url }}" alt="CompanyLogo"></div>
     <div class="customerInfo" style="margin-bottom:25px;">
         <p style="margin:5px 5px 15px 5px; font-style:italic;">{{ date }}</p>
         <p style="margin:5px;"><b>Attention: {{ customer.name }}</b></p>
@@ -21,12 +21,12 @@
     <p style="margin:5px;"><b>Warranty: </b> 10 year on all parts, 5 year on labor. Fabric warranty is based on manufacturer’s warranty.</p>
     <p style="margin:5px 5px 15px 5px;"><b>Quotation: </b> This price is valid for 90 days. Goods remain the property of vendor until paid in full.
     50% Deposit is required at the time of order, remaining amount due at time of installation.</p>
-    <p style="margin:5px;">Please call or email if you have any questions. If you would like to see the product quoted, please visit one of our showrooms.</p>
-    <p style="margin:15px 5px 5px 5px;">ADDRESS1</p>
-    <p style="margin:5px;">ADDRESS2</p>
-    <p style="margin:5px;">ADDRESS3</p>
+    <p style="margin:5px 5px 15px 5px;">Please call or email if you have any questions. If you would like to see the product quoted, please visit one of our showrooms.</p>
+    {% for address in company.addresses %}
+    <p style="margin:5px;">{{ address }}</p>
+    {% endfor %}
     <div style="margin-top:35px;">
         <p style="margin:5px;">Thank You, {{ user.get_full_name }}</p>
-        <p style="margin:5px;">Proudly serving LOCATION since COMPANYINCEPTIONYEAR</p>
+        <p style="margin:5px;">{{ company.signature_tagline }}</p>
     </div>
 </div>

@@ -1,3 +1,5 @@
+import os
+
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, render, get_list_or_404
 from django.views.generic import CreateView, UpdateView, ListView
@@ -16,10 +18,24 @@ def email_preview(request, quote_id):
     quote = get_object_or_404(Quote, pk=quote_id)
     customer = get_list_or_404(Customer, quote=quote_id)[0]
     context = {
-        'date': date.today().strftime("%Y/%m/%d"),
+        'date': date.today().strftime("%Y-%m-%d"),
         'customer': customer,
-        'quote': quote
+        'quote': quote,
+        'company': {
+            'logo_url': os.environ.get('COMPANY_LOGO_URL', ''),
+            'addresses': os.environ.get('COMPANY_ADDRESSES', '').split('%'),
+            'signature_tagline': os.environ.get('COMPANY_SIGNATURE_TAGLINE', '')
+        }
     }
+    if customer.last_emailed_at:
+        context['success_message'] = f'{customer.name} was emailed at {customer.last_emailed_at.strftime("%Y-%m-%d, %I:%M:%S %p")}'
+
+    if request.POST:
+        quote.send_customer_email(
+            context, subject=os.environ.get('COMPANY_EMAIL_SUBJECT')
+        )
+        context['success_message'] = 'Customer email sent successfully.'
+
     return render(request, 'quotes/customer_email_preview.html', context)
 
 class QuoteCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
