@@ -12,6 +12,7 @@ from datetime import date
 from .models import Quote, Customer
 from .forms import AwningFormSet, CustomerFormSet, ScreenFormSet, QuoteForm
 
+
 @login_required
 def email_preview(request, quote_id):
 
@@ -64,16 +65,17 @@ class QuoteCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
         with transaction.atomic():
             form.instance.written_by = self.request.user
-            self.object = form.save()
             if awnings.is_valid() and screens.is_valid() and customers.is_valid():
+                self.object = form.save()
                 customers.instance = self.object
                 customers.save()
                 awnings.instance = self.object
                 awnings.save()
                 screens.instance = self.object
                 screens.save()
-
-        return super(QuoteCreateView, self).form_valid(form)
+                return super(QuoteCreateView, self).form_valid(form)
+            else:
+                return self.render_to_response(context)
 
     def get_success_url(self):
         return reverse('quotes:detail', args=[str(self.object.id)])
@@ -108,18 +110,20 @@ class QuoteUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
         screens = context['screens']
         with transaction.atomic():
             form.instance.written_by = self.request.user
-            self.object = form.save()
             if (
                 awnings.is_valid() and screens.is_valid() and
                 customers.is_valid()
             ):
+                self.object = form.save()
                 customers.instance = self.object
                 customers.save()
                 awnings.instance = self.object
                 awnings.save()
                 screens.instance = self.object
                 screens.save()
-        return super(QuoteUpdateView, self).form_valid(form)
+                return super(QuoteUpdateView, self).form_valid(form)
+            else:
+                return self.render_to_response(context)
 
     def get_success_url(self):
         return reverse('quotes:detail', args=[str(self.object.id)])

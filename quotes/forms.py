@@ -41,7 +41,7 @@ class CustomerForm(forms.ModelForm):
 CustomerFormSet = inlineformset_factory(
     Quote, Customer, form=CustomerForm,
     fields=['name', 'address', 'city', 'phone', 'email'], extra=1, min_num=1,
-    max_num=1, can_delete=False
+    max_num=1, validate_min=True, can_delete=False
 )
 
 class AwningForm(forms.ModelForm):
