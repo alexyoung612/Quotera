@@ -1,65 +1,72 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-    {% if object_list %}
-    <table class="table table-hover">
-        <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Customer(s)</th>
-              <th scope="col">Address</th>
-              <th scope="col">City</th>
-              <th scope="col">Status</th>
-              <th scope="col">Created By</th>
-              <th scope="col">Created At</th>
-            </tr>
-          </thead>
-        <tbody>
-            {% for quote in object_list %}
-            <tr data-href="{% url 'quotes:detail' quote.id %}">
-                <td>{{ quote.id }}</td>
-                <td>
-                    {% for customer in quote.customer_set.all %}
-                    {{ customer.name }} <br>
-                    {% endfor %}
-                </td>
-                <td>
-                    {% for customer in quote.customer_set.all %}
-                    {{ customer.address }} <br>
-                    {% endfor %}
-                </td>
-                <td>
-                    {% for customer in quote.customer_set.all %}
-                    {{ customer.city }} <br>
-                    {% endfor %}
-                </td>
-                <td>{{ quote.status }}</td>
-                <td>{{ quote.written_by }}</td>
-                <td>{{ quote.created_at }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <ul class="pagination">
-        {% if page_obj.has_previous %}
-        <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">previous</a></li>
-        {% else %}
-        <li class="page-item disabled"><a class="page-link" href="#">&laquo; first</a></li>
-        <li class="page-item disabled"><a class="page-link" href="#">previous</a></li>
-        {% endif %}
-        <li class="page-item active"><a class="page-link" href="#">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</a></li>
-        {% if page_obj.has_next %}
-        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">next</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a></li>
-        {% else %}
-        <li class="page-item disabled"><a class="page-link" href="#">next</a></li>
-        <li class="page-item disabled"><a class="page-link" href="#">last &raquo;</a></li>
-        {% endif %}
-    </ul>
-    {% else %}
-    <p>No quotes are available.</p>
-    {% endif %}
+    <div class="mx-auto">
+        <div class="card my-5">
+            <div class="card-body">
+                <h2>Quotes</h2>
+                {% if object_list %}
+                <table class="table table-striped table-hover my-5">
+                    <thead>
+                        <tr>
+                          <th scope="col">ID</th>
+                          <th scope="col">Customer(s)</th>
+                          <th scope="col">Address</th>
+                          <th scope="col" class="d-none d-md-table-cell">City</th>
+                          <th scope="col" class="d-none d-md-table-cell">Status</th>
+                          <th scope="col" class="d-none d-md-table-cell">Created By</th>
+                          <th scope="col" class="d-none d-md-table-cell">Created At</th>
+                        </tr>
+                      </thead>
+                    <tbody>
+                        {% for quote in object_list %}
+                        <tr data-href="{% url 'quotes:detail' quote.id %}">
+                            <td>{{ quote.id }}</td>
+                            <td>
+                                {% for customer in quote.customer_set.all %}
+                                {{ customer.name }} <br>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for customer in quote.customer_set.all %}
+                                {{ customer.address }} <br>
+                                {% endfor %}
+                            </td>
+                            <td class="d-none d-md-table-cell">
+                                {% for customer in quote.customer_set.all %}
+                                {{ customer.city }} <br>
+                                {% endfor %}
+                            </td>
+                            <td class="d-none d-md-table-cell">{{ quote.status }}</td>
+                            <td class="d-none d-md-table-cell">{{ quote.written_by }}</td>
+                            <td class="d-none d-md-table-cell">{{ quote.created_at }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item d-none d-md-block"><a class="page-link" href="?page=1">&laquo; first</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">previous</a></li>
+                    {% else %}
+                    <li class="page-item disabled d-none d-md-block"><a class="page-link" href="#">&laquo; first</a></li>
+                    <li class="page-item disabled"><a class="page-link" href="#">previous</a></li>
+                    {% endif %}
+                    <li class="page-item active"><a class="page-link" href="#">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</a></li>
+                    {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">next</a></li>
+                    <li class="page-item d-none d-md-block"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><a class="page-link" href="#">next</a></li>
+                    <li class="page-item disabled d-none d-md-block"><a class="page-link" href="#">last &raquo;</a></li>
+                    {% endif %}
+                </ul>
+                {% else %}
+                <p>No quotes are available.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block scripts %}
