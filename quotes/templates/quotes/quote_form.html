@@ -3,8 +3,10 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<div id="content" class="container my-5" name="content">
   <form method="post" novalidate>
     {% csrf_token %}
     {% crispy form %}
   </form>
+</div>
 {% endblock %}

@@ -1,8 +1,9 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
+<div id="content" class="container my-5" name="content">
     <div class="mx-auto">
-        <div class="card my-5">
+        <div class="card shadow-lg">
             <div class="card-body">
                 <h2>Quotes</h2>
                 {% if object_list %}
@@ -67,6 +68,7 @@
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block scripts %}

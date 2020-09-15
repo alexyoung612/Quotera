@@ -34,16 +34,19 @@ class CustomerForm(forms.ModelForm):
                     Field('city', wrapper_class='col-md'),
                     Field('phone', wrapper_class='col-md'),
                     Field('email', wrapper_class='col-md'),
-                    # Field('DELETE', wrapper_class='col-md-2'),
+                    # Field('DELETE'),  # Input hidden by django-dynamic-formset
+                    # Div(css_class='delete-container d-flex align-items-center'),
                 ),
-                css_class='formset_row-{}'.format(formtag_prefix)
+                css_class='formset_row-{} list-group-item rounded shadow-lg'
+                .format(formtag_prefix)
             )
         )
 
+# Max is 2 as the hidden empty form is included.
 CustomerFormSet = inlineformset_factory(
     Quote, Customer, form=CustomerForm,
     fields=['name', 'address', 'city', 'phone', 'email'], extra=1, min_num=1,
-    max_num=1, validate_min=True, can_delete=False
+    max_num=2, validate_min=True, can_delete=False
 )
 
 class AwningForm(forms.ModelForm):
@@ -115,10 +118,10 @@ class AwningForm(forms.ModelForm):
                         'additional_costs_quote', '$', wrapper_class='col-md-3'
                     ),
                 ),
-                Field('DELETE'),
-                css_class='formset_row-{} list-group-item rounded'.format(
-                    formtag_prefix
-                )
+                Field('DELETE'),  # Input hidden by django-dynamic-formset
+                Div(css_class='delete-container d-flex justify-content-end'),
+                css_class='formset_row-{} list-group-item rounded shadow-lg'
+                .format(formtag_prefix)
             ),
         )
 
@@ -152,9 +155,11 @@ class ScreenForm(forms.ModelForm):
         self.helper.render_hidden_fields = True
         self.helper.layout = Layout(
             Row(
-                Field('fabric_color'),
-                Field('DELETE'),
-                css_class='formset_row-{}'.format(formtag_prefix)
+                Field('fabric_color', wrapper_class='col-md-2'),
+                Field('DELETE'),  # Input hidden by django-dynamic-formset
+                Div(css_class='delete-container d-flex justify-content-end'),
+                css_class='formset_row-{} list-group-item rounded shadow-lg'
+                .format(formtag_prefix)
             )
         )
 
@@ -197,11 +202,17 @@ class QuoteForm(forms.ModelForm):
                     'Screens',
                     Formset('screens')
                 ),
-                Field('estimated_install_time'),
-                Field('install_difficulty'),
-                Field('installers_required'),
-                Field('equipment_required'),
-                Field('status'),
+                Fieldset(
+                    'Install Details',
+                    Div(
+                        Field('estimated_install_time'),
+                        Field('install_difficulty'),
+                        Field('installers_required'),
+                        Field('equipment_required'),
+                        Field('status'),
+                        css_class="list-group-item rounded shadow-lg"
+                    ),
+                ),
                 HTML('<br>'),
                 ButtonHolder(
                     Submit('submit', 'save'),

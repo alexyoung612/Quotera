@@ -6,8 +6,9 @@
 {% load static %}
 
 {% block content %}
+<div id="content" class="container my-5" name="content">
 	<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-		<div class="card card-signin my-5" style="border-radius:1rem">
+		<div class="card card-signin" style="border-radius:1rem">
 			<div class="card-body">
 				<form method="POST" class="form-group text-center" novalidate>
 					<img src="{% static 'main/images/quotera_logo_300x300.png' %}" class="mb-4 mt-4" height="100" width="100" alt="Company Logo">
@@ -21,4 +22,5 @@
 			</div>
 		</div>
 	</div>
+</div>
 {% endblock %}
