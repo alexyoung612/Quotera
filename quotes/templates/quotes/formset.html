@@ -2,9 +2,6 @@
 {% load static %}
 
 <style type='text/css'>
-    .delete-row {
-        align-self: center;
-    }
     .list-group-item:nth-child(even) {
         background: #DDD
     }
@@ -26,7 +23,12 @@
 <script type="text/javascript">
     $('.formset_row-{{ formset.prefix }}').formset({
         addText: 'add another',
+        addCssClass: 'btn btn-primary',
         deleteText: 'remove',
+        deleteCssClass: 'btn btn-danger',
+        // deleteContainerClass: 'delete-container',
         prefix: '{{ formset.prefix }}',
+        hideLastAddForm: true,
+        formCssClass: '{{ formset.prefix }}'
     });
 </script>
