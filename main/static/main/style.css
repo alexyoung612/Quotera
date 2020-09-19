@@ -42,9 +42,13 @@ body {
     border-radius: 100%;
 }
 
-.test {
+#circle-content {
+    width: 60%;
+    height: calc(100vh - 86px);
+    position: fixed;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: #FFF;
 }
