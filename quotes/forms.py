@@ -12,6 +12,11 @@ from .custom_layout_object import Formset
 from .models import Awning, Customer, Screen, Quote
 
 
+class CustomCheckbox(Field):
+    """Custom checkbox to line up with other form inputs"""
+    template = 'quotes/custom_checkbox.html'
+
+
 class CustomerForm(forms.ModelForm):
 
     class Meta:
@@ -66,8 +71,8 @@ class AwningForm(forms.ModelForm):
         self.helper.layout = Layout(
             Div(
                 Row(
-                    Field('awning_type', wrapper_class='col-md-9'),
-                    Field('wrap_front_profile'),
+                    Field('awning_type', wrapper_class='col-md-10'),
+                    CustomCheckbox('wrap_front_profile', wrapper_class='col-md-2'),
                 ),
                 Row(
                     Field('width_inches', wrapper_class='col-md-3'),
@@ -80,7 +85,7 @@ class AwningForm(forms.ModelForm):
                     Field('motor_type', wrapper_class='col-md-2'),
                     Field('cord_length', wrapper_class='col-md-2'),
                     Field('remote', wrapper_class='col-md-2'),
-                    Field('wind_sensor', wrapper_class='col-md-2'),
+                    CustomCheckbox('wind_sensor', wrapper_class='col-md-2'),
                     Field('crank_size', wrapper_class='col-md-2'),
                 ),
                 Row(
